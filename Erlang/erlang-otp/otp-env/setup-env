@@ -1,0 +1,3 @@
+export ERLANG_CLUSTER=4n
+
+sh check-env.sh

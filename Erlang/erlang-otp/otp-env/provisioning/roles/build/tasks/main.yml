@@ -1,0 +1,43 @@
+---
+- name: Install the 'Development tools' package group
+  yum:
+    name: "@Development tools"
+    state: present
+
+- name: Install sshpass tool
+  yum: name=sshpass state=installed
+
+- name: Generate RSA key-pair for passwordless
+  shell: ssh-keygen -t rsa -f .ssh/id_rsa -q -N "" && touch .skiprsa
+  become: yes
+  become_user: vagrant
+  args:
+    chdir: /home/vagrant
+    creates: .skiprsa
+
+- name: Install boot host public key in a remote authorized_keys
+  shell: >
+    sshpass -p vagrant ssh-copy-id -i .ssh/id_rsa {{ item }} -o StrictHostKeyChecking=no
+  become: yes
+  become_user: vagrant
+  args:
+    chdir: /home/vagrant
+  with_inventory_hostnames:
+    - all
+
+- name: Checkout Apache Mesos repo
+  git:
+    repo: https://git-wip-us.apache.org/repos/asf/mesos.git
+    dest: /home/vagrant/mesos.git
+    version: "{{ mesos_repo_branch }}"
+    update: no
+
+- name: Copy exports file.
+  template:
+    src: exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart NFS Server
+

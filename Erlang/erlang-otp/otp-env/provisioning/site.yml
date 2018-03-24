@@ -1,0 +1,26 @@
+---
+# - Plays are map roles to hosts.  
+# - Roles are just abstractions around tasks
+# - Each "hosts:"-block (a play) will be executed 
+#   one by one. So you can use multiple
+#   blocks to force the desired execution order.
+# - The plays are executed from top to down order.
+# - Multiple roles declarations per play are executed
+#   non in special order, you cannot control the order
+#   of roles within a play.
+
+# Play 0
+- hosts: all
+  roles:
+   - common
+
+# Play 1
+- hosts: build
+  roles:
+   - build
+
+# Play 2
+- hosts: erlang-nodes
+  roles:
+    - erlang-nodes
+

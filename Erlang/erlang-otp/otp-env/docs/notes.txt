@@ -1,0 +1,20 @@
+Master:
+
+cd /home/vagrant/mesos.git/build
+sudo ./bin/mesos-master.sh --ip=100.0.10.101 --work_dir=/var/lib/mesos
+
+Agents:
+
+cd /home/vagrant/mesos.git/build
+sudo ./bin/mesos-agent.sh --master=100.0.10.101:5050 --work_dir=/var/lib/mesos
+
+Debugging:
+
+gdbserver -> exec ${LIBTOOL} --mode=execute gdbserver 100.0.10.101:1234 \
+  /home/vagrant/mesos.git/build/src/mesos-master "${@}"
+
+
+(gdb) target remote mesos-m1:1234
+(gdb) continue
+(gdb) monitor exit
+

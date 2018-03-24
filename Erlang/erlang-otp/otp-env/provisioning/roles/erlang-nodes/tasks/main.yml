@@ -1,0 +1,13 @@
+---
+- name: Create mount point mesos.git
+  file:
+    path: /home/vagrant/mesos.git
+    state: directory
+
+- name: Mount mesos.git folder locally
+  mount:
+    path: /home/vagrant/mesos.git
+    src: build:/home/vagrant/mesos.git
+    fstype: nfs
+    state: mounted
+

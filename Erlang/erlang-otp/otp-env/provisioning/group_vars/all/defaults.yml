@@ -1,0 +1,40 @@
+---
+mesos_repo_branch: master
+system_packages:
+  - tar
+  - wget
+  - git
+  - docker-python
+  - epel-release
+  - vim
+  - tree
+  - ntp
+  - net-tools
+  - bind-utils
+  - xz 
+  - unzip 
+  - curl 
+  - ipset
+  - nfs-utils
+  - gdb-gdbserver
+mesos_dependencies_packages:
+  - apache-maven 
+  - python-devel 
+  - python-six 
+  - python-virtualenv 
+  - java-1.8.0-openjdk-devel 
+  - zlib-devel 
+  - libcurl-devel 
+  - openssl-devel 
+  - cyrus-sasl-devel 
+  - cyrus-sasl-md5 
+  - apr-devel 
+  - subversion-devel 
+  - apr-util-devel
+nfs_shared_folder: /home/vagrant/mesos.git
+nfs_packages:
+  - rpcbind 
+  - nfs-server
+  - nfs-lock 
+  - nfs-idmap
+
