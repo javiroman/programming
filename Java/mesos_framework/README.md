@@ -1,20 +1,19 @@
 Hello,
 
-This is a simple example framework accompanying a blog post that can be found here: http://www.opencredo.com/2015/02/16/write-mesos-framework/
+This is a simple example framework accompanying a blog post that 
+can be found here: http://www.opencredo.com/2015/02/16/write-mesos-framework/
 
 Build
 -----
-
 ```
 mvn clean package
 ```
 
-This will produce the artefact: target/example-framework-1.0-SNAPSHOT-jar-with-dependencies.jar
-
+This will produce the artefact: 
+target/example-framework-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 Run
 ---
-
 
 Run the jar:
 
