@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'org.opencredo.mesos'
+version = '1.0-SNAPSHOT'
+
+description = """Maven Quick Start Archetype"""
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+
+
+
+repositories {
+        
+     maven { url "http://downloads.mesosphere.io/maven" }
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.apache.mesos', name: 'mesos', version:'1.5.o'
+}
