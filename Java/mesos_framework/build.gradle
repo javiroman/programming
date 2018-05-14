@@ -9,8 +9,6 @@ description = """Maven Quick Start Archetype"""
 sourceCompatibility = 1.5
 targetCompatibility = 1.5
 
-
-
 repositories {
         
      maven { url "http://downloads.mesosphere.io/maven" }

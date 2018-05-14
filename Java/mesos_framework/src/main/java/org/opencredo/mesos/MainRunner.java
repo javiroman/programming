@@ -9,11 +9,10 @@ import org.apache.mesos.Scheduler;
 
 public class MainRunner {
 
-    static String frameworkName = "framework-example";
-    static String executorName = "ExampleExecutor";
-    static String path = "/vagrant/example-framework-1.0-SNAPSHOT-jar-with-dependencies.jar";
-    static String command = "java -cp /vagrant/example-framework-1.0-SNAPSHOT-jar-with-dependencies.jar org.opencredo.mesos.ExampleExecutor";
-
+    static String frameworkName = "Framework-MyName";
+    static String executorName = "Executor-MyName";
+    static String path = "/opt/programming.git/Java/mesos_framework/build/libs/example-framework-1.0-SNAPSHOT.jar";
+    static String command = "java -cp /opt/mesos/build/src/java/target/protobuf-java-3.5.0.jar:/opt/mesos/build/src/java/target/mesos-1.5.0.jar:/opt/programming.git/Java/mesos_framework/build/libs/example-framework-1.0-SNAPSHOT.jar -Djava.library.path=/opt/mesos/build/src/.libs org.opencredo.mesos.ExampleExecutor";
 
     private static FrameworkInfo getFrameworkInfo() {
         FrameworkInfo.Builder builder = FrameworkInfo.newBuilder();

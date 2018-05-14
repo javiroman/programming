@@ -213,7 +213,7 @@ public class TestFramework {
 
     FrameworkInfo.Builder frameworkBuilder = FrameworkInfo.newBuilder()
         .setUser("") // Have Mesos fill in the current user.
-        .setName("Test Framework (Java)")
+        .setName("Original Test Framework (Java)")
         .setCheckpoint(true);
 
     boolean implicitAcknowledgements = true;
