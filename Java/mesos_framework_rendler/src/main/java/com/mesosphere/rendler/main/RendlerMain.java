@@ -72,7 +72,7 @@ public class RendlerMain {
 
       Credential credential = Credential.newBuilder()
           .setPrincipal(System.getenv("DEFAULT_PRINCIPAL"))
-          .setSecret(ByteString.copyFrom(System.getenv("DEFAULT_SECRET").getBytes())).build();
+          .setSecret(System.getenv("DEFAULT_SECRET")).build();
 
       frameworkBuilder.setPrincipal(System.getenv("DEFAULT_PRINCIPAL"));
 

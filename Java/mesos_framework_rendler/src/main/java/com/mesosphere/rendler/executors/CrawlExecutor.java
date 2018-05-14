@@ -60,7 +60,7 @@ public class CrawlExecutor implements Executor {
    * 
    **/
   private String getUrlSource(String pURL) throws IOException {
-    URL siteURL = new URL(pURL);
+    java.net.URL siteURL = new java.net.URL(pURL);
     URLConnection connection = siteURL.openConnection();
     BufferedReader myBufReader = new BufferedReader(new InputStreamReader(
         connection.getInputStream(), "UTF-8"));
