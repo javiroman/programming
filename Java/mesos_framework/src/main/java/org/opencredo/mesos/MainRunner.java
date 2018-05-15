@@ -6,13 +6,17 @@ import org.apache.mesos.Protos.FrameworkInfo;
 import org.apache.mesos.Protos.ExecutorInfo;
 import org.apache.mesos.Protos.CommandInfo;
 import org.apache.mesos.Scheduler;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class MainRunner {
 
     static String frameworkName = "Framework-MyName";
     static String executorName = "Executor-MyName";
     static String path = "/opt/programming.git/Java/mesos_framework/build/libs/example-framework-1.0-SNAPSHOT.jar";
-    static String command = "java -cp /opt/mesos/build/src/java/target/protobuf-java-3.5.0.jar:/opt/mesos/build/src/java/target/mesos-1.5.0.jar:/opt/programming.git/Java/mesos_framework/build/libs/example-framework-1.0-SNAPSHOT.jar -Djava.library.path=/opt/mesos/build/src/.libs org.opencredo.mesos.ExampleExecutor";
+    static String command = "";
 
     private static FrameworkInfo getFrameworkInfo() {
         FrameworkInfo.Builder builder = FrameworkInfo.newBuilder();
@@ -45,7 +49,16 @@ public class MainRunner {
         return builder.build();
     }
 
-    private static void runFramework(String mesosMaster) {
+    private static void runFramework(String mesosMaster, String commandFile) {
+        try { 
+            command = new Scanner(new File(commandFile)).useDelimiter("\\Z").next();
+            System.out.println(command);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Scheduler scheduler = new ExampleScheduler(getExecutorInfo());
         MesosSchedulerDriver driver = new MesosSchedulerDriver(scheduler, getFrameworkInfo(), mesosMaster);
         int status = driver.run() == Protos.Status.DRIVER_STOPPED ? 0 : 1;
@@ -55,6 +68,6 @@ public class MainRunner {
     }
 
     public static void main(String[] args) throws Exception {
-        runFramework(args[0]);
+        runFramework(args[0], args[1]);
     }
 }
