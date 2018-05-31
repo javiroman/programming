@@ -4,6 +4,7 @@ import org.apache.mesos.Executor;
 import org.apache.mesos.ExecutorDriver;
 import org.apache.mesos.MesosExecutorDriver;
 import org.apache.mesos.Protos;
+import java.util.concurrent.TimeUnit;
 
 public class ExampleExecutor implements Executor {
 
@@ -26,6 +27,14 @@ public class ExampleExecutor implements Executor {
     public void launchTask(ExecutorDriver executorDriver,
 			Protos.TaskInfo taskInfo) {
 
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } 
+        catch(InterruptedException ex) 
+        {
+                Thread.currentThread().interrupt();
+
+        }
         Integer id = Integer.parseInt(taskInfo.getData().toStringUtf8());
         String reply = id.toString();
         executorDriver.sendFrameworkMessage(reply.getBytes());
