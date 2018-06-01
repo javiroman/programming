@@ -6,9 +6,6 @@ version = '1.0-SNAPSHOT'
 
 description = """Maven Quick Start Archetype"""
 
-sourceCompatibility = 1.5
-targetCompatibility = 1.5
-
 repositories {
         
      maven { url "http://downloads.mesosphere.io/maven" }
@@ -16,4 +13,10 @@ repositories {
 }
 dependencies {
     compile group: 'org.apache.mesos', name: 'mesos', version:'1.5.0'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:unchecked'
+    options.deprecation = true
+
 }
