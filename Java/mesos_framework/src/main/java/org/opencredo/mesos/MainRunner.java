@@ -1,22 +1,19 @@
 package org.opencredo.mesos;
 
-import org.apache.mesos.MesosSchedulerDriver;
-import org.apache.mesos.Protos;
-import org.apache.mesos.Protos.FrameworkInfo;
-import org.apache.mesos.Protos.ExecutorInfo;
-import org.apache.mesos.Protos.CommandInfo;
-import org.apache.mesos.Scheduler;
-import org.apache.mesos.Protos.Credential;
-import com.google.protobuf.ByteString;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.apache.mesos.*;
+import org.apache.mesos.Protos.*;
+
+import com.google.protobuf.ByteString;
+
 public class MainRunner {
 
-    static String frameworkName = "Framework-MyName";
-    static String executorName = "Executor-MyName";
+    static String frameworkName = "Framework-Test";
+    static String executorName = "Executor-Test";
     static String remoteExecutorPath = "/tmp/Executor-MyName/example-framework-1.0-SNAPSHOT.jar";
     static String command = "";
 
@@ -83,7 +80,25 @@ public class MainRunner {
         driver = new MesosSchedulerDriver(scheduler, getFrameworkInfo(), mesosMaster, credential.build());
         int status = driver.run() == Protos.Status.DRIVER_STOPPED ? 0 : 1;
 
+        // Ensure that the driver process terminates.
         driver.stop();
+
+        // For this test to pass reliably on some platforms, this sleep is
+        // required to ensure that the SchedulerDriver teardown is complete
+        // before the JVM starts running native object destructors after
+        // System.exit() is called. 500ms proved successful in test runs,
+        // but on a heavily loaded machine it might not.
+        // TODO(javiroman): Ideally, we would inspect the status of the driver
+        // and its associated tasks via the Java API and wait until their
+        // teardown is complete to exit.
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            System.out.println("I was interrupted!");
+            e.printStackTrace();
+        }
+
+
         System.exit(status);
     }
 
