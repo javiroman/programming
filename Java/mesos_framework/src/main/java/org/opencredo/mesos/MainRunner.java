@@ -17,7 +17,7 @@ public class MainRunner {
 
     static String frameworkName = "Framework-MyName";
     static String executorName = "Executor-MyName";
-    static String path = "./build/libs/example-framework-1.0-SNAPSHOT.jar";
+    static String remoteExecutorPath = "/tmp/Executor-MyName/example-framework-1.0-SNAPSHOT.jar";
     static String command = "";
 
     private static FrameworkInfo getFrameworkInfo() {
@@ -30,7 +30,7 @@ public class MainRunner {
 
     private static CommandInfo.URI getUri() {
         CommandInfo.URI.Builder uriBuilder = CommandInfo.URI.newBuilder();
-        uriBuilder.setValue(path);
+        uriBuilder.setValue(remoteExecutorPath);
         uriBuilder.setExtract(false);
         return uriBuilder.build();
     }
@@ -60,24 +60,23 @@ public class MainRunner {
         }
 
         MesosSchedulerDriver driver = null;
-	if (System.getenv("MESOS_AUTHENTICATE") != null) {
-	      System.out.println("Enabling authentication for the framework");
+        if (System.getenv("MESOS_AUTHENTICATE") != null) {
+            System.out.println("Enabling authentication for the framework");
         }
 
-	if (System.getenv("DEFAULT_PRINCIPAL") == null) {
-		System.err.println("Expecting authentication principal in the environment");
-		System.exit(1);
-	}
+        if (System.getenv("DEFAULT_PRINCIPAL") == null) {
+            System.err.println("Expecting authentication principal in the environment");
+            System.exit(1);
+        }
 
-	if (System.getenv("DEFAULT_SECRET") == null) {
-		System.err.println("Expecting authentication secret in the environment");
-		System.exit(1);
-	}
+        if (System.getenv("DEFAULT_SECRET") == null) {
+            System.err.println("Expecting authentication secret in the environment");
+            System.exit(1);
+        }
 
         Credential.Builder credential = Credential.newBuilder()
-		.setPrincipal(System.getenv("DEFAULT_PRINCIPAL"))
-                .setSecret(System.getenv("DEFAULT_SECRET"));
-
+            .setPrincipal(System.getenv("DEFAULT_PRINCIPAL"))
+            .setSecret(System.getenv("DEFAULT_SECRET"));
 
         Scheduler scheduler = new ExampleScheduler(getExecutorInfo());
 
