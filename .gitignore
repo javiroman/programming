@@ -17,3 +17,5 @@ gradle-app.setting
 
 # vim temporal files
 *.swp
+
+bin/
