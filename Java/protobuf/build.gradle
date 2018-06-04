@@ -1,0 +1,19 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+version = '1.0-SNAPSHOT'
+
+description = """Protobuf Quick Start"""
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'com.google.protobuf:protobuf-java:3.5.1'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:unchecked'
+    options.deprecation = true
+}

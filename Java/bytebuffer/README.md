@@ -4,6 +4,8 @@ https://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html
 
 http://www.kdgregory.com/index.php?page=java.byteBuffer
 
+https://worldmodscode.wordpress.com/2012/12/14/the-java-bytebuffer-a-crash-course/
+
 
 Java (New I/O), and it is one of the more interesting packages because it 
 supports a channel-based approach to I/O operations. The NIO classes
