@@ -21,17 +21,20 @@ public class ZKCreate {
 
     public static void main(String[] args) {
 
-        // znode path
-        String path = "/MyFirstZnode"; // Assign path to znode
-
         String mydata = "my mierda";
+
+	System.out.println("Znode: " + args[0]);
+	System.out.println("Digest: " + args[1]);
+
         // data in byte array
-        byte[] data = mydata.getBytes();
+        //byte[] data = mydata.getBytes();
+        byte[] data = new byte[1000000-500];
 
         try {
             conn = new ZooKeeperConnection();
             zk = conn.connect("localhost");
-            create(path, data); // Create the data to the specified path
+	    zk.addAuthInfo("digest", args[1].getBytes());
+            create(args[0], data); // Create the data to the specified path
             conn.close();
         } catch (Exception e) {
             System.out.println(e.getMessage()); //Catch error message
