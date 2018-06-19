@@ -6,6 +6,7 @@ public class Laptop {
     private String price;
 
     public Laptop(){
+        System.out.println("Latop constructor");
         this.model = "HP 323233232";
         this.price = "$545034";
     }

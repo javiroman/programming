@@ -7,4 +7,5 @@ package add.service;
 
 public interface Add {
     public int add(int a, int b);
+    public int add2(int a, int b);
 }
