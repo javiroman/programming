@@ -16,6 +16,7 @@ public class MainRunner {
     static String executorName = "Executor-Test";
     static String remoteExecutorPath = "/tmp/Executor-MyName/example-framework-1.0-SNAPSHOT.jar";
     static String command = "";
+    static Credential.Builder credential;
 
     private static FrameworkInfo getFrameworkInfo() {
         FrameworkInfo.Builder builder = FrameworkInfo.newBuilder();
@@ -57,27 +58,35 @@ public class MainRunner {
         }
 
         MesosSchedulerDriver driver = null;
-        if (System.getenv("MESOS_AUTHENTICATE") != null) {
-            System.out.println("Enabling authentication for the framework");
-        }
 
-        if (System.getenv("DEFAULT_PRINCIPAL") == null) {
-            System.err.println("Expecting authentication principal in the environment");
-            System.exit(1);
-        }
+        if (System.getenv("MESOS_SECURITY") != null) {
 
-        if (System.getenv("DEFAULT_SECRET") == null) {
-            System.err.println("Expecting authentication secret in the environment");
-            System.exit(1);
-        }
+            if (System.getenv("MESOS_AUTHENTICATE") != null) {
+                System.out.println("Enabling authentication for the framework");
+            }
 
-        Credential.Builder credential = Credential.newBuilder()
-            .setPrincipal(System.getenv("DEFAULT_PRINCIPAL"))
-            .setSecret(System.getenv("DEFAULT_SECRET"));
+            if (System.getenv("DEFAULT_PRINCIPAL") == null) {
+                System.err.println("Expecting authentication principal in the environment");
+                System.exit(1);
+            }
+
+            if (System.getenv("DEFAULT_SECRET") == null) {
+                System.err.println("Expecting authentication secret in the environment");
+                System.exit(1);
+            }
+
+            credential = Credential.newBuilder()
+                    .setPrincipal(System.getenv("DEFAULT_PRINCIPAL"))
+                    .setSecret(System.getenv("DEFAULT_SECRET"));
+        }
 
         Scheduler scheduler = new ExampleScheduler(getExecutorInfo());
 
-        driver = new MesosSchedulerDriver(scheduler, getFrameworkInfo(), mesosMaster, credential.build());
+        if (System.getenv("MESOS_SECURITY") != null)
+            driver = new MesosSchedulerDriver(scheduler, getFrameworkInfo(), mesosMaster, credential.build());
+        else
+            driver = new MesosSchedulerDriver(scheduler, getFrameworkInfo(), mesosMaster);
+
         int status = driver.run() == Protos.Status.DRIVER_STOPPED ? 0 : 1;
 
         // Ensure that the driver process terminates.
