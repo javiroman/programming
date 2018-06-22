@@ -63,7 +63,7 @@ public class ParentLastClassLoader extends ClassLoader {
                 throw new ClassNotFoundException("Not found " + className);
             }
         } catch (ClassNotFoundException e) {
-            System.out.println("Delegating to parent : " + className);
+            System.out.println("Class not found Delegating to parent : " + className);
             // didn't find it, try the parent
             return super.loadClass(className, resolve);
         }
