@@ -18,15 +18,15 @@ public class ParentLastClassLoader extends ClassLoader {
 
     @Override
     public Class findClass(String name) throws ClassNotFoundException {
-        System.out.println("Trying to find");
+        //System.out.println("Trying to find");
         throw new ClassNotFoundException();
     }
 
     @Override
     protected synchronized Class loadClass(String className, boolean resolve) throws ClassNotFoundException {
-        System.out.println("Trying to load");
+        //System.out.println("Trying to load");
         try {
-            System.out.println("Loading class in Child : " + className);
+            //System.out.println("Loading class in Child : " + className);
             byte classByte[];
             Class result = null;
 
@@ -63,7 +63,7 @@ public class ParentLastClassLoader extends ClassLoader {
                 throw new ClassNotFoundException("Not found " + className);
             }
         } catch (ClassNotFoundException e) {
-            System.out.println("Class not found Delegating to parent : " + className);
+            //System.out.println("Class not found Delegating to parent : " + className);
             // didn't find it, try the parent
             return super.loadClass(className, resolve);
         }
