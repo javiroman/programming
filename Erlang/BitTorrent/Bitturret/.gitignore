@@ -1,0 +1,11 @@
+.eunit
+*.beam
+*.app
+*.dump
+deps/*
+rel/*.tar.gz
+rel/files
+.DS_Store
+log
+logs
+.rvmrc
