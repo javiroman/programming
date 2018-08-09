@@ -1,0 +1,232 @@
+Links:
+
+http://github.com/jlouis/etorrent
+http://github.com/jlouis/etorrent_core
+http://localhost:8888 - Normal old-style webui code here.
+
+TODO:
+· [GH/jlouis/etorrent#140] Fix the release!
+  · DONE Push change to the upnp repository: It needs ranch!
+    fork!
+    Push!
+  · DONE Push change to etorrent_core since it refers cascadae as part of it. We then need this dependency.
+  · DONE Push changes to etorrent which will fix stuff.
+  · DONE Make it possible to run tests from etorrent release again.
+  · DONE We need common_test in the release.
+ 
+· [GH/jlouis/etorrent#143] make test investigation
+  · Investigate what happens on a `make test'
+
+· GH/jlouis/etorrent_core#8 Fix the problem when completing a torrent:
+	  {{badarg,[{etorrent_peerstate,choked,2,
+	                              [{file,"src/etorrent_peerstate.erl"},
+	                               {line,120}]},
+	          {etorrent_peer_control,handle_message,2,
+	                                 [{file,"src/etorrent_peer_control.erl"},
+	                                  {line,535}]},
+	          {etorrent_peer_control,handle_cast,2,
+	                                 [{file,"src/etorrent_peer_control.erl"},
+	                                  {line,319}]},
+	          {gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,607}]},
+	          {proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,227}]}]},
+	 [{gen_server,terminate,6,[{file,"gen_server.erl"},{line,747}]},
+	  {proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,227}]}]}
+· Investigate the following crash report:
+
+	The problem here seems to manifest itself just after a switch to endgame mode. This is
+	peculiar since it looks like this endgame mode switch messes up the current state.
+
+	2012-10-20 17:52:16 =CRASH REPORT====
+	  crasher:
+	    initial call: etorrent_peer_control:init/1
+	    pid: <0.3631.0>
+	    registered_name: []
+	    exception exit:
+		{{noproc,
+		     {gen_server,call,
+		         ['<0.1110.0>',
+		          {chunk,
+		              {request,15,
+		                  {pieceset,1385,undefined,
+		                      «255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,255,255,255,255,255,255,255,255,255,
+		                        255,255,255,255,1:1»},
+		                  '<0.3631.0>'}}]}},
+		 [{gen_server,terminate,6,[{file,"gen_server.erl"},{line,747}]},
+		  {proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,227}]}]}
+
+	    ancestors: [<0.1113.0>,<0.1099.0>,etorrent_torrent_pool,etorrent_sup,<0.1064.0>]
+	    messages: []
+	    links: [<0.3632.0>,<0.3634.0>,<0.1113.0>]
+	    dictionary: [{random_seed,{1351,20413,9934}}]
+	    trap_exit: false
+	    status: running
+	    heap_size: 2584
+	    stack_size: 24
+	    reductions: 177260
+	  neighbours:
+	    neighbour:
+		[{pid,'<0.3634.0>'},
+		 {registered_name,[]},
+		 {initial_call,{etorrent_peer_send,init,['Argument__1']}},
+		 {current_function,{gen_server,loop,6}},
+		 {ancestors,['<0.3631.0>','<0.1113.0>','<0.1099.0>',etorrent_torrent_pool,
+		             etorrent_sup,'<0.1064.0>']},
+		 {messages,[]},
+		 {links,['<0.3631.0>']},
+		 {dictionary,[]},
+		 {trap_exit,false},
+		 {status,waiting},
+		 {heap_size,610},
+		 {stack_size,9},
+		 {reductions,210956}]
+
+	    neighbour:
+		[{pid,'<0.3632.0>'},
+		 {registered_name,[]},
+		 {initial_call,{etorrent_peer_recv,init,['Argument__1']}},
+		 {current_function,{gen_server,loop,6}},
+		 {ancestors,['<0.3631.0>','<0.1113.0>','<0.1099.0>',etorrent_torrent_pool,
+		             etorrent_sup,'<0.1064.0>']},
+		 {messages,[]},
+		 {links,['<0.3631.0>','<0.10258.19>','#Port<0.5951>']},
+		 {dictionary,[]},
+		 {trap_exit,false},
+		 {status,waiting},
+		 {heap_size,1597},
+		 {stack_size,9},
+		 {reductions,486780}]
+
+	2012-10-20 17:52:16 =SUPERVISOR REPORT====
+	     Supervisor: {<0.1113.0>,etorrent_peer_pool}
+	     Context:    child_terminated
+
+	     Reason:     {noproc,
+				    {gen_server,call,
+				        ['<0.1110.0>',
+				         {chunk,
+				             {request,15,
+				                 {pieceset,1385,undefined,
+				                     «255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,255,255,255,255,255,255,255,255,255,
+				                       255,255,255,255,1:1»},
+				                 '<0.3631.0>'}}]}}
+
+	     Offender:   
+		[{pid,'<0.3631.0>'},
+		 {name,child},
+		 {mfargs,{etorrent_peer_control,start_link,undefined}},
+		 {restart_type,temporary},
+		 {shutdown,5000},
+		 {child_type,worker}]
+
+· Split off the DHT code after looking a bit at it.
+	It does not look like the DHT code should be part of etorrent directly. Rather,
+	I'd like it to be separate and then take it from there.
+
+	So, it turns out that we can probably move it out. You need to grab dht_state and
+	dht_net and pick them outside as well as their general supervisor. The dht_tracker
+	code is actually the etorrent-proper parts.
+	
+	But it also means we must redefine the code such that configuration becomes injected
+	rather than asked for. This way, it should be possible to maintain a proper, separate,
+	application which maintains the state of the DHT tables for us inside the application.
+· Test single-torrent download of something
+	This ought to work if we try it out. Let us try with an ubuntu image:
+	
+	http://releases.ubuntu.com/12.04/ubuntu-12.04.1-alternate-i386.iso.torrent
+
+· Split webui into its own piece.
+	There is no need to have this in the main etorrent application, since it is a thing
+	which is UI.
+· Consider how to split etorrent_core into multiple pieces.
+	· DHT
+	· WebUI stuff
+· Think about how to run a system like cascadae together with etorrent.
+  	· Analysis:
+	  Obviously, we should not need to have a dependency on cascadae in etorrent.
+	  It is the other way around: cascadae should use etorrent as a dependency, specifically
+	  it should be etorrent_core.
+	
+	  Also, etorrent should not have to be bound together with cascadae. It is the wrong
+	  type of coupling we are looking into there. Instead, we would like to have a thin
+	  modular layer of commands which can be used by cascadae to communicate
+	  with etorrent_core and obtain information about it.
+	· Solution:
+	  Make etorrent non-dependent on cascadae. We should be able to build a release
+	  entirely without any mention of it. Otherwise we failed decoupling.
+· Ranch support, see GH/jlouis/etorrent_core#5
+· Use more canonical t() types.
+· Kill renames of types where possible.
+	I don't like to have to dig for a type. I'd much rather know the exact type
+	at the beginning. Writing it down is not much more space and it is way more
+	readable if you have the full type right there. It is easier to read and it is easier
+	to understand what is going on then.
+	
+	Aliasing and renames does not help readability. It lowers it. The sacrifice is that
+	it takes longer to write the code, but I don't care that much about that. Code is read
+	more than it is written anyway.
+
+DONE:
+· Wrong supervisor kills, see GH/jlouis/etorrent_core#7
+  There is a problem when closing down which generates crashes. This is wrong:
+	2012-10-14 19:57:10.201 [error] <0.26576.0>
+		Supervisor etorrent_peer_sup had child receiver started with
+		  etorrent_peer_recv:start_link(1, #Port<0.5987>) at <0.26579.0> exit with reason normal
+		  in context child_terminated
+  The solution to this problem is to avoid having a supervisor called `etorrent_peer_sup` for it. We should
+  just use the peer_control process to manage the subtree.
+
+· Make new dialyzer code part of etorrent
+· Make it possible to dialyze etorrent again.
+	The problem here is mimetypes which can not be dialyzed,
+	so we probably need to exclude it from the list of things we want
+	to consider when we are running dialyzer checks.
+· Make etorrent_core non-dependent on cascadae.
+	This should not be the case.
+· GH/jlouis/etorrent#136
+  · This makes the release construction fail
+· GH/jlouis/etorrent_core#4
+  · Make the code compile again
+	This requires a step where the cascadae code gets updated.
+	We have prodded Mr. Uvarov about it.
+· Fix the following error: GH/jlouis/etorrent_core#6
+	(etorrent@127.0.0.1)1> 2012-10-14 18:04:22.347 [error] <0.1072.0>
+	CRASH REPORT Process <0.1072.0> with 0 neighbours exited with reason:
+		no case clause matching
+			{error,{file_error,"/Users/jlouis/etorrent/spool/fast_resume_state.dets",
+                   	  enoent}}
+ 		in etorrent_fast_resume:init/1 line 107 in gen_server:init_it/6 line 328
+· Test etorrent
+	· First step: Compile Erlang for Myrddraal
+	· Second step: Compile etorrent on Myrddraal so we have a working beast.
+	· Third step: Test etorrent on Myrddraal, make sure the correct hole is punched in the FW
+	  There is a hole in the firewall.
+	  
+
+
+DONE
+----------------------------------------------------
+
