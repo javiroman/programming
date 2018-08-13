@@ -1,0 +1,21 @@
+%_topdir %(echo $ERL_TOP)/rpmbuild
+%_tmppath %(echo $ERL_TOP)/rpmbuild/tmp
+%_signature gpg
+%_gpg_name Erlang Solutions Ltd. <packages@erlang-solutions.com>
+
+%packager Erlang Solutions Ltd.
+%distsuffix erlang_solutions
+
+%_vendor erlang
+
+%_name esl-erlang
+%_vers 17.5
+%_release 1
+
+%_license ASL 2.0
+
+%_arch x86_64
+
+%_group Development
+%_summary Erlang OTP package
+%_description This is an Erlang OTP %{_vers} package
