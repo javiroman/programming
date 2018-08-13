@@ -21,3 +21,10 @@ gradle-app.setting
 bin/
 
 *.class
+
+# Erlang ignores
+*.beam
+*~
+deps/
+ebin/
+.#*
