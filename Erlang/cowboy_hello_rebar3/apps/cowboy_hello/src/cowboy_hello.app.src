@@ -5,7 +5,8 @@
   {mod, { cowboy_hello_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    cowboy
    ]},
   {env,[]},
   {modules, []},
