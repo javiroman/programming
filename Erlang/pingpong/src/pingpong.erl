@@ -1,12 +1,17 @@
 -module(pingpong).
 
 %% API exports
--export([]).
+-export([main/0]).
+-import(pid_value, [start/0]).
+-import(registered, [start2/0]).
 
 %%====================================================================
 %% API functions
 %%====================================================================
 
+main() ->
+  pid_value:start(),
+  registered:start2().
 
 %%====================================================================
 %% Internal functions

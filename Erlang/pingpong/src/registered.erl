@@ -10,12 +10,11 @@
 -author("javierroman").
 
 %% API
--export([]).
+-export([start2/0, ping/1, pong/0]).
 
 ping(0) ->
   pong ! finished,
   io:format("ping finished~n", []);
-
 ping(N) ->
   pong ! {ping, self()},
   receive
@@ -34,6 +33,6 @@ pong() ->
       pong()
   end.
 
-start() ->
-  register(pong, spawn(tut16, pong, [])),
-  spawn(tut16, ping, [3]).
+start2() ->
+  register(pong, spawn(registered, pong, [])),
+  spawn(registered, ping, [3]).
