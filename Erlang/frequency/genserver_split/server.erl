@@ -6,7 +6,7 @@
 -export([format_status/2]).
 
 start() ->
-    gen_server:start_link({local, frequency}, frequency, [], []).
+    gen_server:start_link({global, frequency}, server, [], []).
 
 stop() ->
     gen_server:cast(frequency, stop).
