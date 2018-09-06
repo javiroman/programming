@@ -7,3 +7,13 @@ Build
 -----
 
     $ rebar3 compile
+
+Run
+---
+
+    $ rebar3 run
+
+Try
+---
+
+http://localhost:2938
