@@ -14,11 +14,14 @@
 %% API
 %%====================================================================
 start(_StartType, _StartArgs) ->
+    io:format("Application listening at: http://localhost:8080 ~n"),
     {ok, Pid} = 'cowboy_react_sup':start_link(),
     Routes = [ {
         '_',
         [
-            {"/", cowboy_react_root, []}
+         {"/", cowboy_static, {priv_file, cowboy_react, "build/index.html"}},
+         {"/static/[...]", cowboy_static, {priv_dir, cowboy_react, "build/static",
+           [{mimetypes, cow_mimetypes, all}]}}
         ]
     } ],
     Dispatch = cowboy_router:compile(Routes),
