@@ -1,0 +1,33 @@
+{
+  "id": "/disk-filler-ephimeral-mesos",
+  "container": {
+      "portMappings": [
+        { 
+          "hostPort": 0, 
+          "containerPort": 8080,
+          "labels": 
+            { 
+                "VIP_0": "/filler-mesos:1234" 
+            }
+        }
+      ],
+      "type": "MESOS",
+      "docker": 
+        { 
+            "image": "disk_filler:latest" 
+        }
+  },
+  "args":[  
+     "python", "filler.py", "-a", "0.0.0.0", "-p", "8080", "-o", "/disk.dat"
+   ],
+  "instances": 1,
+  "cpus": 0.25,
+  "gpus": 0,
+  "mem": 32,
+  "disk": 0,
+  "networks": [
+    {
+        "mode": "container/bridge"
+    }
+  ]
+}
