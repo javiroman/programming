@@ -1,14 +1,13 @@
 {
-  "id": "/disk-filler-ephimeral-mesos",
+  "id": "/disk-filler-ephemeral-mesos-quota",
   "container": {
       "portMappings": [
         { 
           "hostPort": 0, 
           "containerPort": 8080,
-          "labels": 
-            { 
-                "VIP_0": "/filler-mesos:1234" 
-            }
+          "labels": {
+              "VIP_0": "/disk-filler-ephemeral-mesos:1234"
+           }
         }
       ],
       "type": "MESOS",
@@ -17,17 +16,15 @@
             "image": "disk_filler:latest" 
         }
   },
-  "args":[  
-     "python", "filler.py", "-a", "0.0.0.0", "-p", "8080", "-o", "/disk.dat"
-   ],
   "instances": 1,
   "cpus": 0.25,
   "gpus": 0,
   "mem": 32,
-  "disk": 0,
+  "disk": 2048,
   "networks": [
     {
         "mode": "container/bridge"
     }
-  ]
+  ],
+  "cmd": "python filler.py -a 0.0.0.0 -p 8080 -o /mnt/mesos/sandbox/disk.dat"
 }
