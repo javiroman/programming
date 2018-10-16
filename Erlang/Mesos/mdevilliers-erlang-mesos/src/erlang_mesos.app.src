@@ -1,0 +1,8 @@
+{application, erlang_mesos,
+ [
+  {description, ""},
+  {vsn, "0.25.0"},
+  {registered, []},
+  {applications, [kernel,stdlib]}
+ ]}.
+

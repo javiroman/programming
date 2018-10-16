@@ -1,0 +1,18 @@
+%% -*- erlang -*-
+{application, riak_mesos,
+ [
+  {description, "Erlang App Skeleton"},
+  {vsn, git},
+  {registered, []},
+  {modules, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  inets,
+                  crypto,
+                  lager,
+                  clique
+                 ]},
+  {mod, { riak_mesos, []}},
+  {env, []}
+ ]}.
