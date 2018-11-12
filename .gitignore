@@ -33,3 +33,7 @@ erl_crash.dump
 _build
 _rel
 .idea
+
+# Jetbrains
+out
+*.iml
