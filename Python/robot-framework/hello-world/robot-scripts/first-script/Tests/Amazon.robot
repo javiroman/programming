@@ -12,8 +12,8 @@ User must sign in to check out
     [Tags]  Smoke
     open browser  http://www.amazon.es  googlechrome
     wait until page contains  Entra ya
-    input text  id=twotabsearchtextbox Ferrari 458
-    sleep  3s
+    input text  id=twotabsearchtextbox  Ferrari 458
+    click button  value=Ir
     close browser
 
 *** Keywords ***
