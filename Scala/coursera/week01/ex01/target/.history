@@ -1,0 +1,12 @@
+console
+compile
+test
+run
+compile
+run
+compile
+clean
+compile
+run
+quit
+run
