@@ -47,7 +47,7 @@ import org.scalatest.junit.JUnitRunner
    * This allows tests to be written in a more readable manner:
    */
   test("one plus one is three?") {
-    assert(1 + 1 == 3) // This assertion fails! Go ahead and fix it.
+    fail(1 + 1 == 3) // This assertion fails! Go ahead and fix it.
   }
 
 
