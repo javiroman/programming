@@ -1,5 +1,3 @@
-package com.foo;
-
 import com.foo.Bar;
 
 // Import log4j classes.
