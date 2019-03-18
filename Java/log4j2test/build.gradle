@@ -16,3 +16,15 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
 }
+
+//
+// Create Fat Jar. Inspect with:  jar tf build/libs/log4j2test-1.0-SNAPSHOT.jar 
+// Run with:  java -cp build/libs/* MyApp
+//
+jar {
+    manifest {
+        attributes( 'Main-Class': 'MyApp' )
+    } from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
