@@ -11,6 +11,12 @@ repositories {
     mavenCentral()
 }
 
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.compilerArgs += ["-proc:none"]
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
