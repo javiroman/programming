@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'hello-drools'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.drools', name: 'drools-compiler', version: '7.19.0.Final'
+    compile group: 'org.kie.server', name: 'kie-server-client', version: '7.19.0.Final'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
