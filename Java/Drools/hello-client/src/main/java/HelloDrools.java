@@ -10,12 +10,20 @@ import org.kie.server.client.RuleServicesClient;
 import java.util.Arrays;
 
 public class HelloDrools {
-    private static final String URL = "http://localhost:8080/kie-server";
+    /*
+        The Kie Server (Decision Manager Server) Information
+     */
+    private static final String URL =
+            "http://127.0.0.1:8080/kie-server/services/rest/server";
+
     private static final String USER = "kieserver";
     private static final String PASSWORD = "kieserver";
-    private static final MarshallingFormat FORMAT = MarshallingFormat.JAXB;
+    private static final String CONTAINER_NAME = "hellowold-test";
+    private static final MarshallingFormat FORMAT = MarshallingFormat.JSON;
+
 
     public static void main(String[] args) {
+        // Server Configuration
         KieServicesConfiguration conf =
                 KieServicesFactory.newRestConfiguration(URL, USER, PASSWORD);
 
@@ -24,15 +32,20 @@ public class HelloDrools {
         KieServicesClient kieServicesClient =
                 KieServicesFactory.newKieServicesClient(conf);
 
+        // To execute rules we must use the Rules Client
         RuleServicesClient ruleClients =
                 kieServicesClient.getServicesClient(RuleServicesClient.class);
 
+        // FIXME: Exception in thread "main" java.lang.NullPointerException
         KieCommands kieCommands = KieServices.Factory.get().getCommands();
+
         BatchExecutionCommand batchCommand =
                 kieCommands.newBatchExecution(Arrays.asList(
-                        kieCommands.newInsert("Javiroman"),
+                        kieCommands.newInsert("My first Drools Example"),
                         kieCommands.newFireAllRules()
                 ));
-        ruleClients.executeCommandsWithResults("hello", batchCommand);
+        // We now execute the commands, in this case we have no results,
+        // the result will be something printed on server console
+        ruleClients.executeCommandsWithResults(CONTAINER_NAME, batchCommand);
     }
 }

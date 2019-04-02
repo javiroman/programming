@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '4.0.1'
 }
 
 group 'hello-drools'
@@ -14,5 +15,49 @@ repositories {
 dependencies {
     compile group: 'org.drools', name: 'drools-compiler', version: '7.19.0.Final'
     compile group: 'org.kie.server', name: 'kie-server-client', version: '7.19.0.Final'
+    compile "org.slf4j:slf4j-api:1.7.+"
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+//
+// https://docs.jboss.org/drools/release/7.14.0.Final/drools-docs/html_single/#_building_and_running_drools_in_a_fat_jar
+// https://github.com/johnrengelman/shadow
+// https://imperceptiblethoughts.com/shadow/configuration/merging/#merging-service-descriptor-files
+
+//
+// Create Fat Jar. Run with:  java -cp build/libs/* HelloDrools
+//
+//jar {
+//    manifest {
+//        attributes( 'Main-Class': 'HelloDrools')
+//    } from {
+//        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
+
+//
+// Other way
+//
+//task fatJar(type: Jar) {
+//    manifest {
+//        attributes 'Implementation-Title': 'Gradle Jar File Example',
+//                'Implementation-Version': '1.1.1',
+//                'Main-Class': 'HelloDrools'
+//    }
+//    baseName = project.name + '-all'
+//    from {
+//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//    {
+//    exclude "META-INF/kie.conf"
+//        }
+//    with jar
+//}
+
+// https://discuss.gradle.org/t/how-do-i-use-the-gradle-shadow-plugin-to-merge-spring-handlers-and-spring-schemas-files-of-multiple-spring-jar-dependencies/6713/3
+shadow {
+    transformer(org.gradle.api.plugins.shadow.transformers.AppendingTransfomer) {
+    resource = 'META-INF/kie.conf'
+    }
 }
