@@ -1,6 +1,9 @@
+import com.github.jengelman.gradle.plugins.shadow.transformers.AppendingTransformer
+
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '4.0.1'
+    id 'maven-publish'
 }
 
 group 'hello-drools'
@@ -55,9 +58,18 @@ dependencies {
 //    with jar
 //}
 
-// https://discuss.gradle.org/t/how-do-i-use-the-gradle-shadow-plugin-to-merge-spring-handlers-and-spring-schemas-files-of-multiple-spring-jar-dependencies/6713/3
-shadow {
-    transformer(org.gradle.api.plugins.shadow.transformers.AppendingTransfomer) {
-    resource = 'META-INF/kie.conf'
+
+// manual: https://libraries.io/github/johnrengelman/shadow
+shadowJar {
+    transform(AppendingTransformer) {
+        resource = 'META-INF/kie.conf'
+    }
+}
+
+publishing {
+    publications {
+        shadowJar(MavenPublication) {
+            artifactId = 'myproject-all'
+        }
     }
 }
