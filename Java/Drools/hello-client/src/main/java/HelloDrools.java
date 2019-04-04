@@ -36,7 +36,6 @@ public class HelloDrools {
         RuleServicesClient ruleClients =
                 kieServicesClient.getServicesClient(RuleServicesClient.class);
 
-        // FIXME: Exception in thread "main" java.lang.NullPointerException
         KieCommands kieCommands = KieServices.Factory.get().getCommands();
 
         BatchExecutionCommand batchCommand =
