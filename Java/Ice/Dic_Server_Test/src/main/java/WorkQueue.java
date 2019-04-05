@@ -1,7 +1,7 @@
-import Demo.*;
+import KeedioMiddlewareNodoFrontera.*;
 
-public class WorkQueue extends Thread
-{
+public class WorkQueue extends Thread {
+
     class FutureEntry {
         java.util.concurrent.CompletableFuture<Void> future;
         int delay;

@@ -5,7 +5,7 @@ plugins {
 
 slice {
     java {
-        files = [file("src/main/slice/Hello.ice")]
+        files = [file("src/main/slice/MiddlewareNodoFrontera.ice")]
         }
 }
 

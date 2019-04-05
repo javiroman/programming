@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 import sys
-import traceback
 import Ice
 
-Ice.loadSlice('Hello.ice')
-import Demo
+Ice.loadSlice('MiddlewareNodoFrontera.ice')
+import KeedioMiddlewareNodoFrontera
 
 class MiddlewareClient:
 
@@ -12,17 +11,18 @@ class MiddlewareClient:
         self.args = args
 
     def run(self, communicator):
-        hello = Demo.HelloPrx.checkedCast(
-            communicator.propertyToProxy('Hello.Proxy'))
-        if not hello:
+        middleware = KeedioMiddlewareNodoFrontera.MiddlewareNodoFronteraPrx.checkedCast(
+            communicator.propertyToProxy('MiddlewareNodoFrontera.Proxy'))
+        if not middleware:
             print(sys.args[0] + ": invalid proxy")
             sys.exit(1)
 
         if len(self.args) > 1 and self.args[1] == "stop":
-            hello.shutdown()
+            middleware.shutdown()
             sys.exit(1)
         try:
-                hello.sayHello(0)
+                ret = middleware.launchJob("hello world", 0)
+                print ret
         except Ice.Exception as ex:
             print(ex)
 

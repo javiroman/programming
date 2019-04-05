@@ -33,11 +33,11 @@ public class Server
                 status = 1;
             } else {
                 com.zeroc.Ice.ObjectAdapter adapter =
-                        communicator.createObjectAdapter("Hello");
+                        communicator.createObjectAdapter("MiddlewareNodoFrontera");
 
                 workQueue.start();
-                adapter.add((com.zeroc.Ice.Object) new HelloI(workQueue),
-                        com.zeroc.Ice.Util.stringToIdentity("hello"));
+                adapter.add((com.zeroc.Ice.Object) new MiddlewareNodoFronteraI(workQueue),
+                        com.zeroc.Ice.Util.stringToIdentity("middleware"));
 
                 adapter.activate();
                 communicator.waitForShutdown();
