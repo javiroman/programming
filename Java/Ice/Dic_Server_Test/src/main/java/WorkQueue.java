@@ -3,7 +3,7 @@ import KeedioMiddlewareNodoFrontera.*;
 public class WorkQueue extends Thread {
 
     class FutureEntry {
-        java.util.concurrent.CompletableFuture<Void> future;
+        java.util.concurrent.CompletableFuture<Integer> future;
         int delay;
     }
 
@@ -41,7 +41,7 @@ public class WorkQueue extends Thread {
                     //
                     _futures.removeFirst();
                     System.err.println("Belated Hello World!");
-                    entry.future.complete((Void)null);
+                    entry.future.complete((Integer) null);
                 }
             }
         }
@@ -54,7 +54,7 @@ public class WorkQueue extends Thread {
         }
     }
 
-    public synchronized void add(java.util.concurrent.CompletableFuture<Void> future, int delay) {
+    public synchronized void add(java.util.concurrent.CompletableFuture<Integer> future, int delay) {
         if(!_done) {
             //
             // Add the work item.

@@ -14,7 +14,7 @@ public class MiddlewareNodoFronteraI implements MiddlewareNodoFrontera
             System.out.println(command);
             return java.util.concurrent.CompletableFuture.completedFuture((Integer) null);
         } else {
-            java.util.concurrent.CompletableFuture<Void> r = new java.util.concurrent.CompletableFuture<>();
+            java.util.concurrent.CompletableFuture<Integer> r = new java.util.concurrent.CompletableFuture<>();
             _workQueue.add(r, delay);
             return r;
         }
