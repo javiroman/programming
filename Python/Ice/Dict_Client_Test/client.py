@@ -13,6 +13,7 @@ class MiddlewareClient:
     def run(self, communicator):
         middleware = KeedioMiddlewareNodoFrontera.MiddlewareNodoFronteraPrx.checkedCast(
             communicator.propertyToProxy('MiddlewareNodoFrontera.Proxy'))
+
         if not middleware:
             print(sys.args[0] + ": invalid proxy")
             sys.exit(1)
@@ -21,8 +22,10 @@ class MiddlewareClient:
             middleware.shutdown()
             sys.exit(1)
         try:
-                ret = middleware.launchJob("hello world", 0)
-                print ret
+            #ret = middleware.launchJob("sleep 10", 0)
+            ret = middleware.launchJob2("ls /", 0)
+            print("waiting for results ...")
+            print ret
         except Ice.Exception as ex:
             print(ex)
 

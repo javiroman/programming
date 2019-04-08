@@ -7,8 +7,12 @@ module KeedioMiddlewareNodoFrontera {
     }
 
     interface MiddlewareNodoFrontera {
-        ["amd"] int launchJob(string command, int delay)
+
+            ["amd"] int launchJob(string command, int delay)
             throws RequestCanceledException;
+
+        ["amd"] int launchJob2(string command, int delay)
+                throws RequestCanceledException;
 
         void shutdown();
     }
