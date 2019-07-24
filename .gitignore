@@ -49,3 +49,6 @@ project/plugins/project/
 .history
 .cache
 .lib/
+
+# Node
+node_modules
