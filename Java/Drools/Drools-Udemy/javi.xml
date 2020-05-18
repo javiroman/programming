@@ -1,0 +1,22 @@
+io.github.aasaru:drools-training:jar:0.1
++- org.kie:kie-api:jar:7.12.0.Final:compile
+|  \- org.kie.soup:kie-soup-maven-support:jar:7.12.0.Final:compile
++- org.drools:drools-core:jar:7.12.0.Final:compile
+|  +- org.kie.soup:kie-soup-commons:jar:7.12.0.Final:compile
+|  +- org.kie.soup:kie-soup-project-datamodel-commons:jar:7.12.0.Final:compile
+|  |  \- org.kie.soup:kie-soup-project-datamodel-api:jar:7.12.0.Final:compile
+|  \- commons-codec:commons-codec:jar:1.10:compile
++- org.drools:drools-compiler:jar:7.12.0.Final:compile
+|  +- org.antlr:antlr-runtime:jar:3.5.2:compile
+|  +- org.eclipse.jdt.core.compiler:ecj:jar:4.6.1:compile
+|  +- com.thoughtworks.xstream:xstream:jar:1.4.10:compile
+|  |  +- xmlpull:xmlpull:jar:1.1.3.1:compile
+|  |  \- xpp3:xpp3_min:jar:1.1.4c:compile
+|  \- com.google.protobuf:protobuf-java:jar:2.6.1:compile
++- org.kie:kie-internal:jar:7.12.0.Final:compile
++- org.slf4j:slf4j-api:jar:1.7.25:compile
++- org.slf4j:slf4j-nop:jar:1.7.25:compile
++- org.mvel:mvel2:jar:2.4.0.Final:compile
+\- org.junit.jupiter:junit-jupiter-api:jar:5.0.2:test
+   +- org.opentest4j:opentest4j:jar:1.0.0:test
+   \- org.junit.platform:junit-platform-commons:jar:1.0.2:test
