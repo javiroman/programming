@@ -1,9 +1,10 @@
-package javiroman.echoclient;
+package sumchain;
+
+import io.netty.channel.ChannelHandlerContext;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
 
@@ -11,7 +12,12 @@ import io.netty.util.CharsetUtil;
   Marks this class as one whose instances can be shared among channels.
  */
 @Sharable
-public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
+public class ClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
+
+    public ClientHandler() {
+        System.out.println("5 ClientHandler Constructor");
+    }
+
     /*
      When notified that the channel is active, sends a message. A channel is active
      when a connection has been established, so the method is invoked when the connections
@@ -19,7 +25,11 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!", CharsetUtil.UTF_8));
+        String cad = "Netty rocks";
+
+        System.out.println("ClientHandler Channel ACTIVE");
+        System.out.println("ClientHandler sending message: " + cad);
+        ctx.writeAndFlush(Unpooled.copiedBuffer(cad, CharsetUtil.UTF_8));
     }
 
     /*

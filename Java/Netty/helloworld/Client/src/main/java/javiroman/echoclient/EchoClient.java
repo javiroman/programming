@@ -19,8 +19,7 @@ public class EchoClient {
         this.port = port;
     }
 
-    public void start()
-        throws Exception {
+    public void start() throws Exception {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
@@ -29,23 +28,24 @@ public class EchoClient {
                 .remoteAddress(new InetSocketAddress(host, port))
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
-                    public void initChannel(SocketChannel ch)
-                        throws Exception {
-                        ch.pipeline().addLast(
-                             new EchoClientHandler());
+                    public void initChannel(SocketChannel ch) throws Exception {
+                        ch.pipeline().addLast(new EchoClientHandler());
                     }
                 });
+
+            // The connection to the server peer, blocks until connection is established.
             ChannelFuture f = b.connect().sync();
+
             f.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully().sync();
         }
     }
 
-    public static void main(String[] args)
-            throws Exception {
+    public static void main(String[] args) throws Exception {
         if (args.length != 2) {
-            System.err.println("Usage: " + EchoClient.class.getSimpleName() +
+            System.err.println("Usage: " +
+                    EchoClient.class.getSimpleName() +
                     " <host> <port>"
             );
             return;
