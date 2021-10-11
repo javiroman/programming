@@ -28,7 +28,7 @@ public class Application {
         Weld weld = new Weld();
         WeldContainer container = weld.initialize();
 
-        final String INDEX_DIRECTORY = "/tmp/index";
+        final String INDEX_DIRECTORY = "/home/javiroman/index";
         Directory index = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
         //Directory index = new RAMDirectory();
         LuceneIndexer indexer = container.select(LuceneIndexer.class).get();
