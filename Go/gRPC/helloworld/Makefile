@@ -8,7 +8,7 @@ generate:
 		--go-grpc_out=. --go-grpc_opt=paths=source_relative \
 		proto/*.proto
 
-build:
+build: generate
 	cd client ; go build .
 	cd server ; go build .
 
