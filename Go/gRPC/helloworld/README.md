@@ -4,6 +4,7 @@
 go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
 ```
 ```
+grpcurl -proto proto/helloworld.proto describe
 grpcurl -proto proto/helloworld.proto -plaintext localhost:50051 list
 grpcurl -proto proto/helloworld.proto -plaintext localhost:50051 helloworld.Greeter.SayHello
 
