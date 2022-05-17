@@ -1,5 +1,5 @@
-greeter_client/greeter_client
-greeter_server/greeter_server
-helloworld/helloworld.pb.go
-helloworld/helloworld_grpc.pb.go
+**/client
+server
+proto/helloworld.pb.go
+proto/helloworld_grpc.pb.go
 
