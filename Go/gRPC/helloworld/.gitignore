@@ -1,5 +1,5 @@
 **/client
-server
+**/server
 proto/helloworld.pb.go
 proto/helloworld_grpc.pb.go
 
