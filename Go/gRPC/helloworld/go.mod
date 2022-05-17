@@ -4,10 +4,12 @@ go 1.17
 
 require (
 	github.com/golang/protobuf v1.5.2
+	github.com/javiroman/programming v0.0.0
 	google.golang.org/grpc v1.46.2
-	google.golang.org/grpc/examples v0.0.0-20220516211522-d9b952b17060
 	google.golang.org/protobuf v1.28.0
 )
+
+replace github.com/javiroman/programming => ./
 
 require (
 	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect

@@ -18,3 +18,6 @@ clean:
 	rm greeter_client/greeter_client 2> /dev/null || true
 	rm greeter_server/greeter_server 2> /dev/null || true
 	rm helloworld/*.pb.go 2> /dev/null || true
+
+mrproper: clean
+	go clean --modcache
