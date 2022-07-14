@@ -31,7 +31,7 @@ public class ReactiveGreetingResource {
         return service.greetings(count, name);
     }
 
-    @POST
+    @GET
     @Produces(MediaType.SERVER_SENT_EVENTS)
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     @Path("/stream/{count}/{name}")

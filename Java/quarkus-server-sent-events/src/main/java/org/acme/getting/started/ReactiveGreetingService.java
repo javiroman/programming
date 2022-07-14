@@ -17,9 +17,8 @@ public class ReactiveGreetingService {
 
     public Multi<String> greetings(int count, String name) {
         return Multi.createFrom().ticks().every(Duration.ofSeconds(1))
-                .onItem().transform(n -> String.format("Completed %s - Salt %d", name, n))
+                .onItem().transform(n -> String.format("%s-%d", name, n))
                 .select().first(count);
-
     }
 
 }
