@@ -53,6 +53,12 @@
       <artifactId>quarkus-jdbc-h2</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>io.quarkiverse.hibernatetypes</groupId>
+      <artifactId>quarkus-hibernate-types</artifactId>
+      <version>0.2.0</version>
+    </dependency>
+
     <!-- H2 console -->
     <dependency>
       <groupId>io.quarkus</groupId>

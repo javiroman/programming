@@ -42,6 +42,7 @@ public class AuthorResource {
 
         System.out.println(payload);
         String name = payload.getName();
+        System.out.println(payload.getParam());
 
         payload.persist();
 

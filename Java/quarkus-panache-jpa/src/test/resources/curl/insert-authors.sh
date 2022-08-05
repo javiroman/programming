@@ -3,6 +3,7 @@ curl -s -X POST \
     -d '
 {
   "name": "Autor 1",
+  "param": { "id": "1", "name": "test1"},
   "books": [
     {
       "name": "Autor 1 Libro 1"
@@ -11,7 +12,6 @@ curl -s -X POST \
     }, {
       "name": "Autor 1 Libro 3"
     }
-
   ]
 }
     ' \
@@ -22,6 +22,7 @@ curl -s -X POST \
     -d '
 {
   "name": "Autor 2",
+  "param": { "id": "2", "name": "test2"},
   "books": [
     {
       "name": "Autor 2 Libro 1"

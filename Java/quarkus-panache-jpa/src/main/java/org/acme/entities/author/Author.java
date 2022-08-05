@@ -1,7 +1,13 @@
 package org.acme.entities.author;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.quarkiverse.hibernate.types.json.JsonBinaryType;
+import io.quarkiverse.hibernate.types.json.JsonType;
+import io.quarkiverse.hibernate.types.json.JsonTypes;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import org.acme.entities.book.Book;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,12 +19,18 @@ import java.util.List;
         @NamedQuery(name = "Author.findByName",
                 query = "SELECT a FROM Author a WHERE a.name = :name")
 })
+@TypeDef(name = JsonTypes.JSON, typeClass = JsonType.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Author extends PanacheEntityBase {
     @Id
     @GeneratedValue
     private Integer id;
 
     private String name;
+
+    @Type(type = JsonTypes.JSON)
+    @Column(name = "PARAM", columnDefinition = JsonTypes.JSON)
+    private MyParam param = new MyParam();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
@@ -57,6 +69,14 @@ public class Author extends PanacheEntityBase {
 
     public void addBook(Book book) {
         books.add(book);
+    }
+
+    public MyParam getParam() {
+        return this.param;
+    }
+
+    public void setParam(MyParam param) {
+        this.param = param;
     }
 
     @Override
