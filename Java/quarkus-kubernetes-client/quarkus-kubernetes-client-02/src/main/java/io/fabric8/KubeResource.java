@@ -20,6 +20,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,8 +85,15 @@ public class KubeResource {
         File file = new File(classLoader.getResource("deployment-example.yaml").getFile());
          */
 
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource("deployments/example/deployment-example.yaml");
+        if (resource == null) {
+            throw new IllegalArgumentException("file not found! " + "mierda");
+        }
+        System.out.println(resource.getPath());
+
         // loop for apply every kubernetes object from a single YAML with multiple objects.
-        for (Object o: convertYamlToJson("deployment-example.yaml")){
+        for (Object o: convertYamlToJson("deployments/example/deployment-example.yaml")){
             ObjectMapper jsonWriter = new ObjectMapper();
             String jsonString = jsonWriter.writeValueAsString(o);
             List<HasMetadata> result = client
@@ -112,12 +121,12 @@ public class KubeResource {
      */
     List<Object> convertYamlToJson(String yaml) throws IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        File file = new File(classLoader.getResource(yaml).getFile());
+        InputStream inputStream = classLoader.getResourceAsStream(yaml);
 
         YAMLFactory yamlFactory = new YAMLFactory();
         ObjectMapper mapper = new ObjectMapper();
 
-        YAMLParser yamlParser = yamlFactory.createParser(file);
+        YAMLParser yamlParser = yamlFactory.createParser(inputStream);
         List<Object> docs = mapper.readValues(yamlParser, Object.class).readAll();
 
         /*

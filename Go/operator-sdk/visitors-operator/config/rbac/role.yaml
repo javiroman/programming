@@ -1,0 +1,33 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - javiroman.javiroman.lan
+  resources:
+  - visitorapps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - javiroman.javiroman.lan
+  resources:
+  - visitorapps/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - javiroman.javiroman.lan
+  resources:
+  - visitorapps/status
+  verbs:
+  - get
+  - patch
+  - update

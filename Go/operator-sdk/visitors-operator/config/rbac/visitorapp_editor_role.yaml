@@ -1,0 +1,24 @@
+# permissions for end users to edit visitorapps.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: visitorapp-editor-role
+rules:
+- apiGroups:
+  - javiroman.javiroman.lan
+  resources:
+  - visitorapps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - javiroman.javiroman.lan
+  resources:
+  - visitorapps/status
+  verbs:
+  - get

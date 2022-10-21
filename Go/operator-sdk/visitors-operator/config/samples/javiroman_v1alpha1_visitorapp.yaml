@@ -1,0 +1,7 @@
+apiVersion: javiroman.javiroman.lan/v1alpha1
+kind: VisitorApp
+metadata:
+  name: visitorapp-sample
+spec:
+  size: 1
+  title: This is an example Go Operator
