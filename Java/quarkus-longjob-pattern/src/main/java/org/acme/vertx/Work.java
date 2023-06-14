@@ -7,7 +7,7 @@ public class Work {
         System.out.println("doing job (15 minutes job!)");
         try {
             // 15 minutes
-            Thread.sleep(900000);
+            Thread.sleep(15000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
